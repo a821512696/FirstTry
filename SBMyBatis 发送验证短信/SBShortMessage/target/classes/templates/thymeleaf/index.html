@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SBM Short Message!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  	<script type="text/javascript" src="jquery-1.9.1.js"></script>
+  	
+  	<script type="text/javascript">
+  	$(document).ready(function(){
+  		
+  		//alert(1);
+  
+  		$("#btn").click(function(){
+  			var sure = confirm("您确认向输入的电话号码发送验证信息吗?");
+  			var tel = $("#tel").val();
+  			console.log("电话号码是" +tel);
+  			if(sure){
+			$.post("check",{"tel":tel},function(data){
+				alert(data);
+	
+			});
+			
+  			}
+  		});
+  		
+  	});
+  	</script>
+  	
+  	
+</head>
+<body bgcolor="#3D9970">
+<h1 >Hello World!</h1>
+
+<center>
+
+<input id="tel" type="text" ><input id="btn" type="button" value="发送短信"> <br> 
+<div style="width:200px;height:200px;border:1px solid black;margin-top:100px;"  id="mes"></div>
+</center>
+
+
+
+</body>
+</html>
