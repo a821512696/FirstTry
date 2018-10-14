@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sch.hunnu.dao.IgirlDao">
+ 
+    <cache  eviction="LRU" type="sch.hunnu.cache.mybatisRediCache"></cache>
+    
+    <select id="selectAllGirl" resultType="girl">
+        select * from girl
+    </select>
+    
+    <select id="selectById" resultType="girl" useCache="true">
+        select * from girl where id=#{id}
+    </select>
+  
+ 
+</mapper>
