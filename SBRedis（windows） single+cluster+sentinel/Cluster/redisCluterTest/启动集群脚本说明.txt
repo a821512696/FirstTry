@@ -1,0 +1,18 @@
+
+三 安装Ruby
+
+redis的集群使用  ruby脚本编写，所以系统需要有 Ruby 环境 ,
+下载地址 http://dl.bintray.com/oneclick/rubyinstaller/:rubyinstaller-2.3.3-x64.exe
+
+安装时3个选项都勾选。
+
+四 安装Redis的Ruby驱动redis-xxxx.gem
+下载地址 https://rubygems.org/pages/download， 下载后解压，当前目录切换到解压目录中，如 D:\Program Files\redis\rubygems-2.6.12 然后在命令行执行 ?ruby setup.rb。
+
+然后GEM 安装 Redis ：切换到redis安装目录，需要在命令行中，执行 gem install redis
+
+
+
+集群的命令为?
+redis-trib.rb create --replicas 1 127.0.0.1:6390 127.0.0.1:6391 127.0.0.1:6392 127.0.0.1:6393 127.0.0.1:6394 127.0.0.1:6395
+--replicas 1 表示每个主数据库拥有从数据库个数为1。master节点不能少于3个，所以我们用了6个redi

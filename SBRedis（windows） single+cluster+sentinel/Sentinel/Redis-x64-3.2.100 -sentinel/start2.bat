@@ -1,0 +1,1 @@
+redis-server.exe sentinel26479.conf --sentinel
