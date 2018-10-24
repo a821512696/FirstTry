@@ -1,0 +1,21 @@
+server:
+  port: 8088
+  
+spring:
+  application:
+    name: checkCode
+
+
+  thymeleaf:
+         #关闭缓存 可以实现及时刷新 ，但是上线应该改为true
+          cache: false
+          #开启模板 不为true 访问不到
+          #开启MVC Thymeleaf视图解析 
+          enabled: true         
+      #前缀 默认为 classpath:/templates/  
+          prefix: classpath:/templates/   
+          suffix: .html
+          mode: HTML5
+          encoding: UTF-8
+          servlet:
+            content-type: text/html; charset=utf-8

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SBM Short Message!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  	
+  	<script type="text/javascript" src="jquery-1.9.1.js"></script>
+  	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
+  	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+  	
+  	<style>
+  	
+  	font{
+  	font-size:13px;
+  	}
+  	</style>
+  	
+  	<script type="text/javascript">
+  	$(document).ready(function(){
+  		console.log("run");
+  		var errorCount=0;
+  		//取得图片
+  		function f(){
+  			$.get("/getpic",function(){
+  	  			//流弊啊，直接让图片请求后台接口来获取图片。
+  	  			$("#panel").html("<img  style=\"cursor:pointer;border:1px solid black;\" id=\"checkPic\" alt=\"loading!\"  title=\"验证码\"   src=\"/getpic\"  "+">");	
+  	  			});
+  		}
+  		
+  		$("#panel").click(function(){
+  			f();
+  		});
+  		
+  		$("#check").click(function(){
+  			
+  			var value = $("#text1").val();
+  			alert(value);
+  			$.get("/submit",{"userStr":value},function(data){
+  				if(data=="1"){
+  					$("#tip").html("<font style=\"color:green;\">验证码对咯~</font>")
+  					f();		//然后换一个
+  				}else if(data=="0"){
+  					errorCount++;
+  					$("#tip").html("<font style=\"color:red;\">验证码错误,请重新输入,<br>点击图片可以更换验证码!"+errorCount+"</font>")
+  				}else{
+  					alert("出了点差错呢,请刷新重试!");
+  				}
+  			});
+  			
+  		});
+  	});
+  	</script>
+  	
+  	
+</head>
+<body>
+<div class="container">
+<h1 >Hello World!</h1>
+
+
+<div style="position:relative;width:290px;height:50px; ">
+<input  type="text" id="text1" style="float:left;margin-top:15px;">
+
+<span id="panel" style="float:right;width:100px;height:50px;">
+<img  style="cursor:pointer;border:1px solid black;" id="checkPic" alt="loading!"  title="点击更换验证码" src="/getpic">
+</span>
+
+</div>
+
+<span id="tip"></span>
+<br>
+<br>
+<input class="btn btn-primary"  type="button" id="check" value="提交">
+
+
+	
+</div>
+</body>
+</html>
