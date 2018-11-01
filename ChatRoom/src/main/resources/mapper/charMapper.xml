@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sch.hunnu.dao.chatDao">
+  <cache></cache>
+    <select id="selectListByACC" resultType="peoList" useCache="true"> 
+        select  sender as acc from prichat where receiver=#{myAcc} union
+         select  receiver as acc from prichat where sender=#{myAcc} 
+    </select>
+     
+    <select id="selectUserByAccs" resultType="user" useCache="true">
+        select acc,nick,pic from user where acc in
+        <foreach collection="list" item="ls" open="(" separator="," close=")">
+            #{ls.acc}
+        </foreach>
+    </select>
+    
+    <select id="selectNoteBy2Acc" resultType="priChat" useCache="true">
+        select senderNick,content,time from prichat where 
+        (sender=#{me} and receiver=#{other}) or (sender=#{other} and receiver=#{me}) ORDER BY id 
+    </select>
+    
+    <select id="selectUserByInfo" resultType="int" useCache="true">
+        select count(*) from user where acc=#{acc} and pw=#{pw} 
+    </select>
+    
+     <select id="selectUserByAcc" resultType="user" useCache="true">
+        select acc,nick,pic from user where acc=#{acc} 
+    </select>
+    
+    <insert id="insertIntoPriChat" parameterType="priSend"  >
+		insert into prichat values(0,#{pri.sender},#{pri.receiver},#{pri.senderNick},#{pri.content},#{pri.time})     
+    </insert>
+    
+    
+    
+    <select id="selectPubChatAll" resultType="pubChat" useCache="true">
+        select acc,nick,pic,content,time from pubchat where groupId=#{id}  
+    </select>
+    
+    
+    <insert id="insertIntoPubChat" parameterType="pubChat"  >
+		insert into pubchat values(0,#{pub.groupId},#{pub.acc},#{pub.nick},#{pub.pic},#{pub.content},#{pub.time})
+    </insert>
+    
+    
+    <insert id="insertIntoUser" parameterType="user">
+        insert into user values(0,#{p.acc},#{p.pw},#{p.nick},#{p.pic},#{p.time})
+    </insert>
+</mapper>
