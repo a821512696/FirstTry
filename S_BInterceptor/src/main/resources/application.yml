@@ -1,0 +1,22 @@
+server:
+  port: 8088
+
+
+spring:
+  application:
+    name: ideaTest1
+
+
+  thymeleaf:
+    #不缓存 及时刷新 ，上线应该设置为true
+    cache: false
+    #开启MVC视图解析器
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    #编码
+    encoding: UTF-8
+    #页面编码
+    servlet:
+      content-type: text/html; charset=utf-8
