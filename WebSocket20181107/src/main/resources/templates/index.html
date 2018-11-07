@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  
+  	<script type="text/javascript" src="jquery-1.9.1.js"></script>
+	
+  	
+  	<script type="text/javascript">
+  	$(document).ready(function(){
+
+  		console.log("run12663666");
+
+		function OnOpen(evt){
+		    console.log("webSocket 连接成功 ！");
+		    console.log(evt);
+		}
+
+  		var webServer = "ws://localhost:8088/index33";		//websocket 服务器地址
+  		var webSocket = new WebSocket(webServer);			//根据服务器地址 建立连接
+
+        webSocket.onopen = function (evt) { OnOpen(evt); }
+
+        webSocket.onmessage = function(evt){
+            console.log("收到服务器的信息为："+evt.data);
+            var datas = $.parseJSON(evt.data);
+            alert(datas[0].name);
+            alert(datas.length);
+        }
+
+        webSocket.onclose = function(){
+            console.log("连接断开成功");
+        }
+
+        webSocket.onerror = function(evt){
+            console.log("产生了错误："+evt.code+"  "+evt.reason);
+        }
+
+        $("#bt1").click(function(){
+            var text = $("#tx1").val();
+            webSocket.send(text);
+            alert("信息发送成功");
+		});
+
+        $("#bt2").click(function(){
+            webSocket.close();
+            alert("连接已经关闭");
+		});
+
+        $("#bt3").click(function(){
+            webSocket = new WebSocket(webServer);
+            alert("连接Ok!");
+        });
+  	});
+   
+  	
+  	</script>
+  	
+  	
+</head>
+<body bgcolor="#3D9970">
+<h1 >Hello World!</h1>
+
+ <input type="text" id="tx1">
+<input type="button" id="bt1" value="发送">
+
+<br>
+
+<input type="button" id="bt3" value="开始连接">
+<input type="button" id="bt2" value="关闭连接">
+
+
+</body>
+</html>
